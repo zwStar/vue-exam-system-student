@@ -64,13 +64,14 @@
       get_exams({}).then((result) => {
         console.log(result);
         let data = result.data;
+        this.data = [];
         if (data.status === 1) {
           data.data.forEach((list) => {
             this.data.push({
               subject: list.subject,
               day: moment(list.examDay * 1000).format('YYYY/MM/DD'),
               time: moment(list.startTime * 1000).format('HH:mm') + '-' + moment(list.endTime * 1000).format('HH:mm'),
-              start:new Date().getTime() >= parseInt(list.startTime*1000) && new Date().getTime() < parseInt(list.endTime*1000),
+              start:new Date().getTime() >= parseInt(list.startTime*1000) && new Date().getTime() < parseInt(list.endTime*1000) && !list.submit,
               id:list.id
             })
           })

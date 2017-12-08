@@ -22,6 +22,7 @@ export default new Router({
       path:'/index',
       name:'Index',
       component:Index,
+      redirect:'/index/query_exam',
       children:[
         {
           path:'query_exam',

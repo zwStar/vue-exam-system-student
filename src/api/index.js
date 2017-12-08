@@ -15,6 +15,10 @@ const axios = require('axios').create({
     } catch (e) {
       json = {};
     }
+    if(json.status === -2){    //登录过期
+      localStorage.removeItem('teacherNo');
+      location.reload();// 为了重新实例化vue-router对象 避免bug
+    }
     return json;
   }]
 })

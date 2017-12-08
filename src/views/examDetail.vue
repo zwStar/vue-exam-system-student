@@ -1,5 +1,6 @@
 <template>
   <div id="exam_detail">
+    <h2 class="tip" v-if="total_score == 0">待批阅</h2>
     <h1>判断题</h1>
     <div v-for="(list,index) in question_list.judgeList">
       <p class="question">{{index + 1}}. {{list.question}}</p>
@@ -48,7 +49,7 @@
     },
     computed: {
       insert_scores() {            //填空题总分
-        return this.total_score - this.judge_score - this.select_score;
+        return this.total_score == 0 ? 0 :this.total_score - this.judge_score - this.select_score;
       }
     },
     mounted() {
@@ -97,6 +98,10 @@
     text-align: center;
     h1 {
       margin: 10px 0;
+    }
+    .tip{
+      color:#ff1717;
+      margin:20px;
     }
     .question {
       margin: 10px 0;

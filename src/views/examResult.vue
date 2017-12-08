@@ -64,9 +64,9 @@
       }
     },
     mounted() {
-      test_result().then((result) => {
-        console.log(result)
-        let data = result.data.data;
+      test_result().then((response) => {
+        console.log(response)
+        let data = response.data.data;
         localStorage.setItem('data',JSON.stringify(data));
       })
     }
