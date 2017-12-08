@@ -1,31 +1,32 @@
 import qs from 'qs'
 import {_get,_post} from './index'
-
+//登录
 export const login = (data) =>{
   let req = {
-    url:'login.php',
+    url:'login/login_student.php',
   }
-  let root = new FormData();
-
-  for (let key of Object.keys(data)) {
-    root.append(key, data[key]);
-  }
-  req.data =root;
+  req.data =data;
   return _post(req);
 };
-//开始考试
-export const get_test = (data) =>{
+
+//退出登录
+export const logout = (data)=>{
   let req = {
-    url:'start_test.php',
-  }
-  req.data = data;
-  return _get(req);
-}
-//暂存考试
-export const temp_test = (data) =>{
-  let req = {
-    url:'temp_test.php',
+    url:'login/logout_student.php',
   }
   req.data = data;
   return _post(req);
 }
+
+//修改密码
+export const change_pass  = (data)=>{
+  let req = {
+    url:'login/change_pass.php'
+  }
+  req.data = data;
+  return _post(req);
+}
+
+
+
+
