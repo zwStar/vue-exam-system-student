@@ -4,7 +4,7 @@
 
 
 php课程设计，做了一个在线考试系统，该系统为了2个，一个是学生端的在线考试一个是教师端的后台管理,这里是学生端，教师端请点击
- -  [vue-exam-system-teacher](https://github.com/zwStar/vue-exam-system-manage)  
+ -  [vue-exam-system-teacher](https://github.com/zwStar/vue-exam-system-teacher)  
  -  [exam-system-backend](https://github.com/zwStar/exam-system-backend)
 
 
@@ -28,7 +28,7 @@ php课程设计，做了一个在线考试系统，该系统为了2个，一个�
     # 本地开发 开启服务
     npm run dev
 ```
-浏览器访问 http://127.0.0.1:8080
+浏览器访问 http://127.0.0.1:8080  不能用localhost 不然谷歌不能跨域
 
 
 ## License
