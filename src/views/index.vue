@@ -47,7 +47,7 @@
     },
     mounted(){
       this.studentNo = localStorage.getItem('studentNo');
-      this.name = localStorage.getItem('name');
+      this.name = localStorage.getItem('studentName');
     }
   }
 </script>

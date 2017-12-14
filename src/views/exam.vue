@@ -38,11 +38,13 @@
     </article>
     <Button type="primary" @click="submit()">提交</Button>
     <Button type="warning" @click="temp_storage()">暂存</Button>
+    <span class="remian_time">考试倒计时： {{remain_time}}</span>
   </div>
 </template>
 
 <script>
   import {start_exam, temp_exam, submit_exam} from '@/api/exam'
+  import moment from 'moment'
 
   export default {
     data() {
@@ -53,7 +55,8 @@
         select_answer: [],
         insert_data: [],
         insert_answer: [],
-        exam_id: 0
+        exam_id: 0,
+        remain_time: null
       }
     },
     methods: {
@@ -63,13 +66,13 @@
         let select_answer = this.select_answer.join(";");
         let insert_answer = this.insert_answer.join(";");
         let exam_id = this.exam_id;
-        submit_exam({judge_answer, select_answer, insert_answer,exam_id}).then((result) => {
+        submit_exam({judge_answer, select_answer, insert_answer, exam_id}).then((result) => {
           console.log(result);
-          let data =result.data;
-          if(data.status === 1){
+          let data = result.data;
+          if (data.status === 1) {
             this.$router.push('/index');
             this.$Message.success(data.message);
-          }else{
+          } else {
             this.$Message.error(data.message);
           }
         })
@@ -83,6 +86,15 @@
         temp_exam({judge_answer, select_answer, insert_answer, exam_id}).then((result) => {
           console.log(result)
         })
+      },
+      calc_remain_time(time) {
+        let remain_time = (time * 1000 - new Date().getTime());
+        var hours = parseInt(remain_time / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+        var minutes = parseInt(remain_time / 1000 / 60 % 60, 10);//计算剩余的分钟
+        var seconds = parseInt(remain_time / 1000 % 60, 10);//计算剩余的秒数
+        this.remain_time = hours + "小时" + minutes + "分" + seconds + "秒";
+        if(hours==0&&minutes==0&&seconds==0)
+          clearInterval(this.timer);
       }
     },
     mounted() {
@@ -102,9 +114,9 @@
             let data = res.data;
             this.exam_id = data.exam_id;
             question_list = JSON.parse(data.question_list);
-             this.judge_answer = data.judge_answer.split(';');    //加载判断题答案
-             this.select_answer = data.select_answer.split(';');  //加载选择题答案
-             this.insert_answer = data.insert_answer.split(';');  //加载填空题答案
+            this.judge_answer = data.judge_answer.split(';');    //加载判断题答案
+            this.select_answer = data.select_answer.split(';');  //加载选择题答案
+            this.insert_answer = data.insert_answer.split(';');  //加载填空题答案
           }
         }
         this.$Message.success(res.message);   //提示信息
@@ -124,6 +136,13 @@
           this.select_data.push({question: el.question, options: obj});
         })
       })
+      //考试倒计时
+
+      let _this = this;
+      let time = localStorage.getItem('endTime');
+      this.timer = setInterval(function () {
+        _this.calc_remain_time(time);
+      }, 1000);
     }
   }
 </script>
@@ -136,6 +155,13 @@
     }
     .ivu-radio-group {
       margin: 10px 0;
+    }
+    .remian_time{
+      color:#000;
+      position:absolute;
+      right:20px;
+      top:70px;
+      z-index: 999;
     }
   }
 </style>

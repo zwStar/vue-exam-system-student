@@ -8,7 +8,7 @@ import 'iview/dist/styles/iview.css';    // 使用 CSS
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
-  if(!localStorage.getItem('teacherNo') && to.path !=='/login'){
+  if(!localStorage.getItem('studentNo') && to.path !=='/login'){
     next('/login');
   }else{
     next();

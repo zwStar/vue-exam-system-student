@@ -54,8 +54,8 @@
               console.log(result)
               let data = result.data;
               if(data.status ===1){
-                localStorage.setItem('name',data.data.name);
-                localStorage.setItem('teacherNo',data.data.teacherNo);
+                localStorage.setItem('studentName',data.data.name);
+                localStorage.setItem('studentNo',data.data.studentNo);
                 this.$router.push({path:'/index'});
               }else{
                 this.$Message.error(data.message);

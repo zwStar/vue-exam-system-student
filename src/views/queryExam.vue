@@ -56,7 +56,7 @@
     },
     methods: {
       begin_exam(index) {
-        console.log(index);
+        localStorage.setItem('endTime',this.data[index].endTime);
         this.$router.push({path:'/index/exam',query:{id:this.data[index].id}});
       }
     },
@@ -72,7 +72,8 @@
               day: moment(list.examDay * 1000).format('YYYY/MM/DD'),
               time: moment(list.startTime * 1000).format('HH:mm') + '-' + moment(list.endTime * 1000).format('HH:mm'),
               start:new Date().getTime() >= parseInt(list.startTime*1000) && new Date().getTime() < parseInt(list.endTime*1000) && !list.submit,
-              id:list.id
+              id:list.id,
+              endTime:list.endTime
             })
           })
           this.$Message.success(data.message);
